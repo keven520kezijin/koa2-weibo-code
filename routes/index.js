@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const { loginRedirect } = require('../middlewares/loginChecks')
+const { loginRedirect, loginCheck } = require('../middlewares/loginChecks')
 
 router.get('/', loginRedirect, async (ctx, next) => {
   await ctx.render('index', {
@@ -21,7 +21,7 @@ router.get('/string', async (ctx, next) => {
   ctx.body = 'koa2 string'
 })
 
-router.get('/json', async (ctx, next) => {
+router.get('/json', loginCheck, async (ctx, next) => {
   // throw Error()
   /**
    * 此处redis要运行起来
