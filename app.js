@@ -15,6 +15,7 @@ const index = require('./routes/index')
 // const users = require('./routes/users')
 const userViewRouter = require('./routes/view/user')
 const userAPIRouter = require('./routes/api/user')
+const utilsAPIRouter = require('./routes/api/utils')
 const errorViewRouter = require('./routes/view/error')
 
 // error handler
@@ -33,6 +34,7 @@ app.use(bodyparser({
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
+app.use(require('koa-static')(__dirname + '/uploadFiles'))
 
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
@@ -65,6 +67,8 @@ app.use(index.routes(), index.allowedMethods())
 // app.use(users.routes(), users.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
+// utilsAPIRouter
+app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods())
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 
 // error-handling
